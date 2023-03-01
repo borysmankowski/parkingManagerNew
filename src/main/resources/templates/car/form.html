@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Form car</title>
+</head>
+<body>
+<h1>Add Car</h1>
+</br>
+
+<form th:action="@{/cars/create}" th:object="${car}" method="post">
+    <input th:if="${car.id != null}" type="hidden" th:field="*{id}" />
+
+    <label>Marka:</label>
+    <input type="text" th:field="*{brand}" />
+
+    <label>Model:</label>
+    <input type="text" th:field="*{model}" />
+
+    <label>Typ paliwa:</label>
+    <select th:field="*{fuelType}">
+        <option th:each="fuelType : ${T(com.masters.coding.common.FuelType).values()}"
+                th:value="${fuelType}" th:text="${fuelType}" />
+    </select>
+
+    <label>Garaż:</label>
+    <select th:field="*{garage}">
+        <option value="">Wybierz garaż</option>
+        <option th:each="garage : ${garages}" th:value="${garage}" th:text="${garage.address}" />
+    </select>
+
+    <button type="submit">Zapisz</button>
+</form>
+
+
+</body>
+</html>

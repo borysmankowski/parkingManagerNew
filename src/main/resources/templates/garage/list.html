@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Garages list</title>
+</head>
+<body>
+<h1>Garages list</h1>
+<table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Address</th>
+        <th>Capacity</th>
+        <th>Accepts LPG</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="garage : ${garages}">
+        <td th:text="${garage.id}"></td>
+        <td th:text="${garage.address}"></td>
+        <td th:text="${garage.capacity}"></td>
+        <td th:text="${garage.acceptsLpg}"></td>
+        <td>
+            <a th:href="@{/garages/{id}(id=${garage.id})}">Details</a>
+            <a th:href="@{/garages/{id}/edit(id=${garage.id})}">Edit</a>
+            <button type="button" onclick="deleteGarage(${garage.id})">Delete</button>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<a href="/garages/create">Create new garage</a>
+
+<script>
+    function deleteGarage(id) {
+        fetch('/garages/' + id, {
+            method: 'DELETE'
+        }).then(function(response) {
+            window.location.reload();
+        });
+    }
+</script>
+</body>
+</html>
